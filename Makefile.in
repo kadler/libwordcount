@@ -1,0 +1,45 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+libdir=@libdir@
+includedir=@includedir@
+host_os=@host_os@
+
+CC=@CC@
+LD=@CC@
+CFLAGS=@CFLAGS@ -fPIC
+CPPFAGS=@CPPFAGS@
+LDFLAGS=@LDFLAGS@
+LIBS=@LIBS@
+
+all: libwordcount.so.1 butter
+
+install: all
+	mkdir -p $(DESTDIR)$(bindir)
+	mkdir -p $(DESTDIR)$(libdir)
+	mkdir -p $(DESTDIR)$(includedir)
+	
+	cp butter $(DESTDIR)$(bindir)
+	cp libwordcount.so libwordcount.so.1 $(DESTDIR)$(libdir)
+	
+	cp wordcount.h $(DESTDIR)$(includedir)
+
+libwordcount.so.1 libwordcount.so: wordcount.so
+	./mkshrlib.sh $(host_os) wordcount.so libwordcount.so 1
+
+wordcount.so: wordcount.o
+	$(LD) -shared -o $@ $^ $(LDFLAGS) $(LIBS)
+
+butter: butter.o libwordcount.so
+	$(LD) -o $@ $^ $(LDFLAGS) $(LIBS)
+
+
+
+.PHONY: clean distclean
+clean:
+	rm -f butter *.o *.so *.so.* *.imp
+	
+distclean: clean
+	rm -f config.h config.log config.status Makefile
+	rm -rf autom4te.cache
+
