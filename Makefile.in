@@ -43,3 +43,14 @@ distclean: clean
 	rm -f config.h config.log config.status Makefile
 	rm -rf autom4te.cache
 
+dist:
+	rm -r wordcount-1.0 | :
+	mkdir wordcount-1.0
+	rm -f wordcount-1.0.tar.gz
+	cp butter.c wordcount.h wordcount.c word.py wordcount-1.0
+	cp configure LICENSE README.md INSTALL wordcount-1.0 
+	cp configure.ac config.h.in Makefile.in mkshrlib.sh wordcount-1.0
+	cp config.guess config.sub install-sh wordcount-1.0
+	tar -czf wordcount-1.0.tar.gz wordcount-1.0
+	rm -r wordcount-1.0
+
