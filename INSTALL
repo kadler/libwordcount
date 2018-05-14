@@ -1,0 +1,14 @@
+This package uses the standard Unix software building method:
+
+./configure
+make
+make install
+
+
+configure is built with GNU autoconf and if you want modify it, you should
+edit configure.ac instead and run autoreconf.
+
+In addition to the standard autoconf settings --prefix, --bindir, etc
+this package can be configured with various optional support packages, many
+of which will be autodetected if no option is given. To see a list of all the
+supported options and a description, run configure --help.
