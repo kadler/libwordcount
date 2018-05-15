@@ -3,6 +3,8 @@ AC_LANG(C)
 AC_PROG_CC
 AC_CANONICAL_HOST
 
+AC_ARG_ENABLE(dependency-tracking, []], [], [])
+
 AC_ARG_WITH(zlib, [AS_HELP_STRING([--with-zlib], [Include zlib support (default=auto)])], [], [with_zlib=auto])
 case "$with_zlib" in
   no|yes|auto) ;;
